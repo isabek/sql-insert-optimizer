@@ -1,5 +1,5 @@
-# sql-insert-opmizer
-An utility which optimizer insert script
+# sql-insert-optimizer
+An utility which optimizes insert script
 
 
 ## How to use it?
