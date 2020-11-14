@@ -5,13 +5,11 @@ import sys
 
 from optimizer import Optimizer
 
-DEFAULT_BATCH = 500
-
 
 def main():
     parser = argparse.ArgumentParser(description="SQL Insert Optimizer")
     parser.add_argument("-sql", help="Location of the SQL file", required=True)
-    parser.add_argument("-batch", help="Batch size", required=False, default=DEFAULT_BATCH, type=int)
+    parser.add_argument("-batch", help="Batch size", required=False, default=500, type=int)
     args = parser.parse_args()
 
     sql_file = os.path.join(os.path.dirname(os.path.realpath('__file__')), args.sql)

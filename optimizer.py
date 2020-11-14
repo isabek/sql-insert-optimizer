@@ -1,10 +1,8 @@
 import os
 
-from main import DEFAULT_BATCH
-
 
 class Optimizer(object):
-    def __init__(self, sql_file=None, output_sql_dir=None, batch=DEFAULT_BATCH):
+    def __init__(self, sql_file=None, output_sql_dir=None, batch=None):
         self.sql_file = sql_file
         self.output_sql_dir = output_sql_dir
         self.batch = batch
@@ -20,19 +18,19 @@ class Optimizer(object):
             with open(self.sql_file, 'r') as fr:
                 lines = []
                 for i, line in enumerate(fr):
+                    lines.append(line)
                     if (i + 1) % self.batch == 0:
                         optimizes_sql_insert = self._optimize(lines=lines)
                         fw.write(optimizes_sql_insert)
-                        print("{} lines optimized".format(i + 1))
-                        lines = []
                         total += self.batch
-
-                    lines.append(line)
+                        print("{} lines optimized".format(total))
+                        lines = []
 
                 if len(lines) > 0:
                     total += len(lines)
                     optimizes_sql_insert = self._optimize(lines=lines)
                     fw.write(optimizes_sql_insert)
+                    print("{} lines optimized".format(total))
             fw.flush()
 
     @staticmethod
@@ -55,4 +53,4 @@ class Optimizer(object):
 
         values_part = ",\n".join(parts)
 
-        return insert_definition + values_part + ";"
+        return insert_definition + values_part + ";\n"
