@@ -5,7 +5,7 @@ An utility which optimizer insert script
 ## How to use it?
 
 ```bash
-python main.py -sql location_of_the_sql_file -batch 3
+python main.py -sql sql_file.sql -batch 3
 ```
 
 
